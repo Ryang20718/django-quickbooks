@@ -74,7 +74,7 @@ OR
   
 Installation from source (github): 
 ```shell script
-pip install -e git+https://github.com/weltlink/django-quickbooks.git@master#egg=django-quickbooks
+pip install -e git+https://github.com/Ryang20718/django-quickbooks.git@master#egg=django-quickbooks
 ````   
 You can run `pip install django-quickbooks pika spyne celery redis` to install all of the dependencies.
 
