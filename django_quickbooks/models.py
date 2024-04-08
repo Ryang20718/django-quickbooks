@@ -193,3 +193,33 @@ def create_qwc(realm, **kwargs):
     tree = etree.ElementTree(root)
 
     return etree.tostring(tree, xml_declaration=True, encoding='UTF-8')
+
+class CustomerModel(QBDModelMixin):
+    first_name = models.CharField(max_length=255, null=True)
+    last_name = models.CharField(max_length=255, null=True)
+    email = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=10)
+    street = models.CharField(max_length=255, blank=True, null=True)
+    zip = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    state = models.CharField(max_length=255, blank=True, null=True)
+    
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+           
+    def to_qbd_obj(self, **fields):
+        from django_quickbooks.objects import Customer as QBCustomer
+        return QBCustomer(Name=self.__str__(),
+                          IsActive=True,
+                          Phone=self.phone,
+                          )
+
+    @classmethod			  
+    def from_qbd_obj(cls, qbd_obj):
+        # map qbd_obj fields to your model fields
+        return cls(
+            first_name=qbd_obj.Name,
+            phone=qbd_obj.Phone,
+            qbd_object_id=qbd_obj.ListID,
+            qbd_object_version=qbd_obj.EditSequence
+        )
