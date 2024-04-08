@@ -48,6 +48,7 @@ DEFAULTS = {
     'LOCAL_MODEL_CLASSES': {
         'Invoice': '',
         'Customer': '',
+        'CustomerModel': 'django_quickbooks.models.CustomerModel',
     }
 }
 
